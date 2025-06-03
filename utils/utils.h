@@ -1,6 +1,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <time.h>
+
 typedef enum {
     COLOR_RESET = 0,
     COLOR_BLACK = 30,
@@ -12,6 +14,8 @@ typedef enum {
     COLOR_CYAN = 36,
     COLOR_WHITE = 37
 } ColorText;
+
+time_t getCurrentTime();
 
 void color_printf(char *text, ColorText color);
 

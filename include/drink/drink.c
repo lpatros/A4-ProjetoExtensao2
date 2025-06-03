@@ -34,8 +34,12 @@ Drink registerDrink(int isNewSale) {
             color_printf("Digite o valor unitario da bebida: R$ ", COLOR_WHITE);
             scanf("%lf", &drink.sale.item.price);
 
+            clearTerminal();
+
             // Calcula o preço total da venda
             drink.sale.total = drink.sale.item.amount * drink.sale.item.price;
+
+            drink.sale.date = getCurrentTime();
 
             // Escreve a venda no arquivo
             writeSale(&drink.sale);

@@ -20,7 +20,7 @@ typedef struct {
     int id;             // ID da venda (incrementado automaticamente)
     itemSale item;      // Item vendido (Refeição, Quentinha ou Bebida)
     double total;       // Preço total da venda
-    time_t timestamp;   // Data e hora da venda
+    time_t date;        // Data e hora da venda
 } Sale;
 
 #define KILO_PRICE 70.00

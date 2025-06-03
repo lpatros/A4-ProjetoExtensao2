@@ -20,14 +20,24 @@ void updateFileID(int id) {
 int getID() {
     FILE *file = fopen(FILE_PATH_ID, "r");
 
+    // Verifica se o arquivo existe
     if (file == NULL) {
         color_printf("Criando novo arquivo com o ID 0.\n", COLOR_YELLOW);
         updateFileID(0);
         return 0;
     }
 
+    // Tenta ler o ID do arquivo
     int id;
-    fscanf(file, "%d", &id);
+    if (fscanf(file, "%d", &id) != 1) {
+    
+        // Se não conseguiu ler o ID, ou o arquivo está vazio
+        color_printf("Arquivo de ID inválido ou vazio. Definindo ID como 0.\n", COLOR_YELLOW);
+        fclose(file);
+
+        updateFileID(0);
+        return 0;
+    }
 
     fclose(file);
     return id;

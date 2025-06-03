@@ -5,12 +5,6 @@
 #include "../saleID/saleID.h"
 #include "../drink/drink.h"
 
-time_t getCurrentTime() {
-    time_t currentTime;
-    time(&currentTime);
-    return currentTime;
-}
-
 void writeSale(Sale* newSale) {
 
     // Abre o arquivo de vendas em modo de adição
@@ -23,17 +17,20 @@ void writeSale(Sale* newSale) {
 
     // Escreve os dados da venda no arquivo (FILE_PATH_SALE) no formato:
 
-    // ----------------------------------------------------
-    // | ID | Tipo | Peso (kg) | Quantidade | Preço Total |
-    // |  1 |   1  |   2.50    |      3     |   20.00     |
-    // ----------------------------------------------------
+    // Utiliza , por conta do setlocale Portuguese no main.c
+    
+    // -----------------------------------------------------------------
+    // | ID | Tipo | Peso (kg) | Quantidade | Preço Item  |    data    |
+    // |  1 |   1  |   2,50    |      3     |   20,00     | 1748967541 |
+    // -----------------------------------------------------------------
 
-    fprintf(file, "%d %d %.3f %d %.2f\n",
+    fprintf(file, "%d %d %.3f %d %.2f %ld\n",
             newSale->id,
             newSale->item.type,
             newSale->item.weight,
             newSale->item.amount,
-            newSale->item.price);
+            newSale->item.price,
+            newSale->date);
 
     fclose(file);
 
@@ -68,12 +65,13 @@ void registerSale() {
             newSale.item.amount = 1;
             newSale.item.price = newSale.item.weight * KILO_PRICE;
 
+            newSale.date = getCurrentTime();
+
             writeSale(&newSale);
 
             // Pergunta e registra se o usuário desejar adicionar bebida(s) à venda atual
             registerDrink(0); // 0 significa que a bebida será adicionada ao id da venda atual
 
-            // Exibe os detalhes da venda
             color_printf("\n-----Refeicao registrada-----\n", COLOR_WHITE);
             printf("| Peso \t\t | Valor    |\n");
             printf("| %.3fkg \t | R$ %.2f |\n", newSale.item.weight, newSale.item.price);
@@ -102,8 +100,13 @@ void registerSale() {
         case BEBIDA:
             registerDrink(1); // 1 significa que a bebida é uma nova venda
             break;
+        
+        case 4:
+            clearTerminal();
+            return;
 
         default:
+            clearTerminal();
             color_printf("Tipo de Venda invalido! Tente novamente.\n", COLOR_RED);
             return;
     }

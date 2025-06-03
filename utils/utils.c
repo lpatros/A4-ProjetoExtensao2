@@ -2,6 +2,12 @@
 
 #include <stdio.h>
 
+time_t getCurrentTime() {
+    time_t currentTime;
+    time(&currentTime);
+    return currentTime;
+}
+
 void color_printf(char *text, ColorText color)
 {
     printf("\033[%dm%s\033[0m", color, text);
@@ -26,6 +32,7 @@ void menuSale()
     color_printf("1. Refeicao a Quilo\n", COLOR_RESET);
     color_printf("2. Quentinha\n", COLOR_RESET);
     color_printf("3. Bebida\n", COLOR_RESET);
+    color_printf("4. Voltar\n", COLOR_RED);
     color_printf("-------------------------\n", COLOR_GREEN);
     color_printf("Opcao: ", COLOR_WHITE);
 }
