@@ -1,13 +1,50 @@
-#include "../include/reports/reports.h"
+#include "reports.h"
 
 #include <stdio.h>
-#include "../include/sale/sale.h"
+#include <stdlib.h>
+#include "../sale/sale.h"
 
-// void generateSalesReport(ReportType reportType) {
+SaleList generateSalesReport(ReportType reportType) {
 
-//     switch (reportType) {
-//         case DAILY_REPORT:
-            
+    SaleList salesList = {
+        .count = 0,
+        .sales = NULL
+    };
+
+    // Abre o arquivo de vendas
+    FILE *file = fopen(FILE_PATH_SALE, "r");
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo de vendas.\n");
+        return salesList;
+    }
+
+    // Lê as vendas do arquivo
+    Sale sale;
+    while (fscanf(file, "%d %d %lf %d %lf %s",
+                  &sale.id,
+                  (int *)&sale.item.type,
+                  &sale.item.weight,
+                  &sale.item.amount,
+                  &sale.item.price,
+                  sale.date) == 6)
+    {
+        // Realloc para aumentar o tamanho atual do array de vendas
+        // e adicionar a nova venda encontrada na linha do arquivo 
+        salesList.sales = realloc(salesList.sales, sizeof(Sale) * (salesList.count + 1));
+
+        if (salesList.sales == NULL) {
+            printf("Erro ao alocar memória para as vendas.\n");
+            fclose(file);
+            return salesList;
+        }
+
+        // Adiciona a venda à lista
+        salesList.sales[salesList.count++] = sale;
+    }
+    
+    fclose(file);
+    return salesList;
+}   
 
 // // I. Função para gerar relatório diário
 // void gerarRelatorioDiario() {

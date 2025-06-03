@@ -8,6 +8,14 @@ time_t getCurrentTime() {
     return currentTime;
 }
 
+void formatDateTime(time_t timestamp, char *buffer) {
+    struct tm *timeInfo = localtime(&timestamp);
+    sprintf(buffer, "%02d/%02d/%02d", 
+            timeInfo->tm_mday,
+            timeInfo->tm_mon + 1,
+            timeInfo->tm_year % 100);
+}
+
 void color_printf(char *text, ColorText color)
 {
     printf("\033[%dm%s\033[0m", color, text);

@@ -1,6 +1,7 @@
 #include "sale.h"
 
 #include <stdio.h>
+#include <string.h>
 #include "../../utils/utils.h"
 #include "../saleID/saleID.h"
 #include "../drink/drink.h"
@@ -24,7 +25,7 @@ void writeSale(Sale* newSale) {
     // |  1 |   1  |   2,50    |      3     |   20,00     | 1748967541 |
     // -----------------------------------------------------------------
 
-    fprintf(file, "%d %d %.3f %d %.2f %ld\n",
+    fprintf(file, "%d %d %.3f %d %.2f %s\n",
             newSale->id,
             newSale->item.type,
             newSale->item.weight,
@@ -45,6 +46,10 @@ void registerSale() {
     int userItem;
     scanf("%d", &userItem);
 
+    time_t currentTime = getCurrentTime();
+    char formattedDate[10]; // Buffer para armazenar a data formatada
+    formatDateTime(currentTime, formattedDate);
+
     Sale newSale = {
         .id = getID() + 1,                  // Obtém o próximo ID de venda
         .item = {
@@ -54,8 +59,10 @@ void registerSale() {
             .price = 0.0                    // Preço unitário do item (inicialmente 0)
         },
         .total = 0.0,                       // Preço total da venda (inicialmente 0)
-        .date = getCurrentTime()            // Data da venda (tempo atual)
     };
+    
+    // Copia a data formatada para a struct
+    strcpy(newSale.date, formattedDate);
     
     switch (newSale.item.type) {
 

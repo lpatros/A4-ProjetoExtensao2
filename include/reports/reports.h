@@ -1,13 +1,15 @@
 #ifndef reports_H
 #define reports_H
 
+#include "../sale/sale.h"
+
 typedef enum {
     DAILY_REPORT,
     MONTHLY_REPORT,
     ANNUAL_REPORT
 } ReportType;
 
-void generateSalesReport(ReportType reportType);
+SaleList generateSalesReport(ReportType reportType);
 
 // void gerarRelatorioMensal();
 // void gerarRelatorioAnual();

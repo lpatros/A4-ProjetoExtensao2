@@ -20,8 +20,13 @@ typedef struct {
     int id;             // ID da venda (incrementado automaticamente)
     itemSale item;      // Item vendido (Refeição, Quentinha ou Bebida)
     double total;       // Preço total da venda
-    time_t date;        // Data e hora da venda
+    char date[20];        // Data e hora da venda
 } Sale;
+
+typedef struct {
+    int count;          // Número de vendas registradas
+    Sale *sales;        // Array dinâmico de vendas
+} SaleList;
 
 #define KILO_PRICE 70.00
 #define QUENTINHA_PRICE 20.00

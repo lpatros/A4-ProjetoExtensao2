@@ -30,7 +30,7 @@ O restaurante vende diariamente uma média de 100 refeições.
 #### Compilação
 Abra o terminal na pasta raiz do projeto e execute o seguinte comando:
 ```bash
-gcc main.c utils/utils.c include/drink/drink.c include/sale/sale.c include/saleID/saleID.c -o main
+gcc main.c utils/utils.c include/drink/drink.c include/sale/sale.c include/saleID/saleID.c include/reports/reports.c -o main
 ```
 
 #### Execução

@@ -17,6 +17,8 @@ typedef enum {
 
 time_t getCurrentTime();
 
+void formatDateTime(time_t timestamp, char *buffer);
+
 void color_printf(char *text, ColorText color);
 
 void menu();

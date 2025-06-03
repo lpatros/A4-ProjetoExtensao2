@@ -1,6 +1,7 @@
 #include "drink.h"
 
 #include <stdio.h>
+#include <string.h>
 #include "../sale/sale.h"
 #include "../../utils/utils.h"
 #include "../sale/sale.h"
@@ -18,9 +19,11 @@ Drink registerDrink(Sale *sale, int isNewSale) {
                 .price = 0.0   // Preço unitário será definido pelo usuário
             },
             .total = 0.0, // Total será calculado posteriormente
-            .date = sale->date
         }
     };
+
+    // Copia a data da venda original
+    strcpy(drink.sale.date, sale->date);
 
     // Se não for uma nova venda, exibe a opção de adicionar bebida(s) a venda atual
     if (!isNewSale) {
