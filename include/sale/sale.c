@@ -42,17 +42,21 @@ void registerSale() {
 
     menuSale();
 
-    int typeItem;
-    scanf("%d", &typeItem);
+    int userItem;
+    scanf("%d", &userItem);
 
-    Sale newSale;
-    // transforma o numero do usuário no enum
-    newSale.item.type = (TypeItem)typeItem;
-
-    // Incrementa o ID da venda
-    int id = getID() + 1;
-    newSale.id = id;
-
+    Sale newSale = {
+        .id = getID() + 1,                  // Obtém o próximo ID de venda
+        .item = {
+            .type = (TypeItem)userItem,     // transforma o numero do usuário no enum
+            .weight = 0.0,                  // Peso da refeição a quilo (inicialmente 0)
+            .amount = 0,                    // Quantidade de quentinhas ou bebidas (inicialmente 0)
+            .price = 0.0                    // Preço unitário do item (inicialmente 0)
+        },
+        .total = 0.0,                       // Preço total da venda (inicialmente 0)
+        .date = getCurrentTime()            // Data da venda (tempo atual)
+    };
+    
     switch (newSale.item.type) {
 
         case REFEICAO:
@@ -65,12 +69,10 @@ void registerSale() {
             newSale.item.amount = 1;
             newSale.item.price = newSale.item.weight * KILO_PRICE;
 
-            newSale.date = getCurrentTime();
-
             writeSale(&newSale);
 
             // Pergunta e registra se o usuário desejar adicionar bebida(s) à venda atual
-            registerDrink(0); // 0 significa que a bebida será adicionada ao id da venda atual
+            registerDrink(&newSale, 0); // 0 significa que não é uma nova venda
 
             color_printf("\n-----Refeicao registrada-----\n", COLOR_WHITE);
             printf("| Peso \t\t | Valor    |\n");
@@ -98,7 +100,7 @@ void registerSale() {
             break;
 
         case BEBIDA:
-            registerDrink(1); // 1 significa que a bebida é uma nova venda
+            registerDrink(&newSale, 1); // 1 significa que é uma nova venda
             break;
         
         case 4:

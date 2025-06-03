@@ -1,7 +1,13 @@
-#include "../include/relatorios.h"
+#include "../include/reports/reports.h"
 
 #include <stdio.h>
 #include "../include/sale/sale.h"
+
+// void generateSalesReport(ReportType reportType) {
+
+//     switch (reportType) {
+//         case DAILY_REPORT:
+            
 
 // // I. Função para gerar relatório diário
 // void gerarRelatorioDiario() {
