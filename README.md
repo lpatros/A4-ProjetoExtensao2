@@ -22,50 +22,6 @@ O restaurante vende diariamente uma média de 100 refeições.
 
 ## ⚙️ Projeto Desenvolvido
 
-<!-- ### 🏗️ Estrutura do Projeto
-
-```
-A4-ProjetoExtensao2/
-├── include/
-│   ├── utils.h          # Funções utilitárias e interface
-│   ├── venda.h          # Estruturas e funções de vendas
-│   └── relatorios.h     # Funções de relatórios
-├── src/
-│   ├── venda.c          # Implementação de vendas
-│   └── relatorios.c     # Implementação de relatórios
-├── utils/
-│   └── utils.c          # Implementação de utilitários
-├── main.c               # Arquivo principal
-└── README.md           # Documentação do projeto
-```
-
-### 🎯 Funcionalidades Implementadas
-
-#### 1. **Sistema de Vendas**
-- ✅ Registro de vendas por tipo (Refeição a Quilo, Quentinha, Bebida)
-- ✅ Cálculo automático de valores baseado em peso/quantidade
-- ✅ Armazenamento em arrays estruturados
-
-#### 2. **Sistema de Relatórios**
-- ✅ **Relatório Diário**: Lista detalhada das vendas do dia
-- ✅ **Relatório Mensal**: Consolidado de vendas por dia do mês
-- ✅ **Relatório Anual**: Ranking dos meses em ordem decrescente de vendas
-
-#### 3. **Interface do Usuário**
-- ✅ Menu interativo colorido
-- ✅ Limpeza automática do terminal
-- ✅ Validação de entradas
-
-### 🔧 Tecnologias e Conceitos Utilizados
-
-| Conceito | Implementação | Arquivo |
-|----------|---------------|---------|
-| **Struct** | `Venda` para armazenar dados de vendas | `venda.h` |
-| **Enum** | `TipoVenda` e `CorTexto` | `venda.h`, `utils.h` |
-| **Arrays** | `vendasDiarias[]`, `totalVendasMes[]`, `totalVendasAno[]` | `venda.c` |
-| **Algoritmo de Ordenação** | Bubble Sort para ranking anual | `venda.c` |
-| **Funções** | Modularização em múltiplos arquivos | Todos os `.c` | -->
-
 ### 🚀 Como Compilar e Executar
 
 #### Pré-requisitos
@@ -74,7 +30,7 @@ A4-ProjetoExtensao2/
 #### Compilação
 Abra o terminal na pasta raiz do projeto e execute o seguinte comando:
 ```bash
-gcc main.c src/venda.c src/relatorios.c utils/utils.c -o main
+gcc main.c utils/utils.c include/drink/drink.c include/sale/sale.c include/saleID/saleID.c -o main
 ```
 
 #### Execução
@@ -84,6 +40,6 @@ No Linux/MacOS:
 ./main
 ```
 No Windows:
-```powershell
+```bash
 main.exe
 ```
