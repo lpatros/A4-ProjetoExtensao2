@@ -17,12 +17,10 @@ void writeSale(Sale* newSale) {
     }
 
     // Escreve os dados da venda no arquivo (FILE_PATH_SALE) no formato:
-
-    // Utiliza , por conta do setlocale Portuguese no main.c
     
     // -----------------------------------------------------------------
-    // | ID | Tipo | Peso (kg) | Quantidade | Preço Item  |    data    |
-    // |  1 |   1  |   2,50    |      3     |   20,00     | 1748967541 |
+    // | ID | Tipo | Peso (kg) | Quantidade | Preço Item  | data       |
+    // |  1 |   1  |   2.50    |      3     |   20.00     | 03/06/25   |
     // -----------------------------------------------------------------
 
     fprintf(file, "%d %d %.3f %d %.2f %s\n",

@@ -1,12 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <locale.h>
 #include "utils/utils.h"
 #include "include/sale/sale.h"
 #include "include/reports/reports.h"
 
 int main() {
-    setlocale(LC_ALL, "Portuguese");
 
     int option = 0;
     while (option != 5) {
