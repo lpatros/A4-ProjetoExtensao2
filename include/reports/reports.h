@@ -13,9 +13,4 @@ SaleList generateSalesReport(ReportType reportType);
 
 void showSalesReport(ReportType reportType);
 
-// void gerarRelatorioMensal();
-// void gerarRelatorioAnual();
-
-// void orderSales(double valores[], int meses[], int tamanho);
-
 #endif
