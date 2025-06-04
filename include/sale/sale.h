@@ -26,6 +26,7 @@ typedef struct {
 typedef struct {
     int count;          // Número de vendas registradas
     Sale *sales;        // Array dinâmico de vendas
+    double totalValue;  // Valor total das vendas
 } SaleList;
 
 #define KILO_PRICE 70.00

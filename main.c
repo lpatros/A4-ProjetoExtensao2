@@ -16,44 +16,48 @@ int main() {
 
         clearTerminal();
 
+        // Verifica se a opção é válida
+        if (option < 1 || option > 5) {
+            color_printf("Opcao invalida! Tente novamente.\n", COLOR_RED);
+            continue; // Volta para o início do loop se a opção for inválida
+        }
+
+        // Se a opção é válida
+
+        // Verifica se o usuário escolheu a opção de sair do sistema
+        if (option == 5) {
+            color_printf("Saindo do sistema...\n", COLOR_YELLOW);
+            break;
+        }
+
+        // Verifica se o usuário escolheu a opção de registrar venda
+        if (option == 1) {
+            registerSale();
+        }
+
+        // Se o usuário não escolheu a opção de registrar venda
+
+        // Inicializa a lista de vendas
+        SaleList salesList = {
+            .count = 0,
+            .sales = NULL,
+            .totalValue = 0.0
+        };
+        
+        // Verifica qual relatório o usuário deseja gerar
         switch (option) {
 
-            case 1:
-                registerSale();
+            case 2:
+                salesList = generateSalesReport(DAILY_REPORT);
+                showSalesReport(&salesList, DAILY_REPORT);
                 break;
-
-            case 2: {
-                SaleList salesList = generateSalesReport(DAILY_REPORT);
-                if (salesList.count > 0) {
-
-                    color_printf("----------------------------- RELATORIO DIARIO -----------------------------\n", COLOR_WHITE);
-                    printf("| ID \t| Tipo \t| Peso \t\t| Quantidade \t| Preco Item \t| Data \t   |\n");
-
-                    int i;
-                    for (i = 0; i < salesList.count; i++) {
-                        Sale sale = salesList.sales[i];
-                        printf("| %d \t| %d \t| %.3fkg \t| %d \t\t| R$%.2f \t| %s |\n",
-                               sale.id, sale.item.type, sale.item.weight, sale.item.amount, sale.item.price, sale.date);
-                    }
-                    color_printf("----------------------------------------------------------------------------\n", COLOR_WHITE);
-                    printf("Total de vendas: %d\n", salesList.count);
-                    free(salesList.sales);
-                } else {
-                    color_printf("Nenhuma venda registrada para o relatório diário.\n", COLOR_YELLOW);
-                }
+            case 3:
+                salesList = generateSalesReport(MONTHLY_REPORT);
+                showSalesReport(&salesList, MONTHLY_REPORT);
                 break;
-            }
-            // case 3:
-            //     gerarRelatorioMensal();
-            //     break;
-            // case 4:
-            //     gerarRelatorioAnual();
-            //     break;
-            case 5:
-                color_printf("Saindo do sistema...\n", COLOR_YELLOW);
-                break;
-            default:
-                color_printf("Opcao invalida! Tente novamente.\n", COLOR_RED);
+            case 4:
+                salesList = generateSalesReport(ANNUAL_REPORT);
+                showSalesReport(&salesList, ANNUAL_REPORT);
                 break;
         }
     }

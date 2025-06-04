@@ -3,12 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../sale/sale.h"
+#include "../../utils/utils.h"
 
 SaleList generateSalesReport(ReportType reportType) {
 
     SaleList salesList = {
         .count = 0,
-        .sales = NULL
+        .sales = NULL,
+        .totalValue = 0.0
     };
 
     // Abre o arquivo de vendas
@@ -19,7 +21,10 @@ SaleList generateSalesReport(ReportType reportType) {
     }
 
     // Lê as vendas do arquivo
-    Sale sale;
+    Sale sale = {
+        .total = 0.0, // Inicializa o total da venda
+    };
+
     while (fscanf(file, "%d %d %lf %d %lf %s",
                   &sale.id,
                   (int *)&sale.item.type,
@@ -38,13 +43,64 @@ SaleList generateSalesReport(ReportType reportType) {
             return salesList;
         }
 
+        // Calcula o total da venda
+        sale.total += (sale.item.amount * sale.item.price);
+
+        // Atualiza o valor total das vendas
+        salesList.totalValue += sale.total;
+
         // Adiciona a venda à lista
         salesList.sales[salesList.count++] = sale;
     }
     
     fclose(file);
     return salesList;
-}   
+}
+
+void showSalesReport(SaleList *salesList, ReportType reportType) {
+
+    if (salesList->count == 0) {
+        color_printf("Nenhuma venda registrada para o dia.\n", COLOR_YELLOW);
+        return;
+    }
+
+    char *reportTypeStr;
+    switch (reportType) {
+        case DAILY_REPORT:
+            reportTypeStr = "Relatorio Diario";
+            break;
+        case MONTHLY_REPORT:
+            reportTypeStr = "Relatorio Mensal";
+            break;
+        case ANNUAL_REPORT:
+            reportTypeStr = "Relatorio Anual";
+            break;
+        default:
+            color_printf("Tipo de relatorio invalido.\n", COLOR_RED);
+            return;
+    }
+
+    // Imprime as vendas registradas no formato:
+
+    // -------------------------- reportType ---------------------------
+    // | ID | Tipo |   Peso    | Quantidade | Preço Item  |    data    |
+    // |  1 |   1  |   2.500   |      3     |   R$20.00   |  03/06/25  |
+    // -----------------------------------------------------------------
+
+    printf("----------------------------- %s -----------------------------\n", reportTypeStr);
+    printf("| ID \t| Tipo \t| Peso \t\t| Quantidade \t| Preco Item \t| Data \t   |\n");
+
+    int i;
+    for (i = 0; i < salesList->count; i++) {
+        Sale sale = salesList->sales[i];
+        printf("| %d \t| %d \t| %.3fkg \t| %d \t\t| R$%.2f \t| %s |\n",
+                sale.id, sale.item.type, sale.item.weight, sale.item.amount, sale.item.price, sale.date);
+    }
+    color_printf("----------------------------------------------------------------------------\n", COLOR_WHITE);
+    printf("Total de vendas: %d\n", salesList->count);
+    printf("Valor total das vendas: R$%.2f\n", salesList->totalValue);
+    free(salesList->sales);
+}
 
 // // I. Função para gerar relatório diário
 // void gerarRelatorioDiario() {
