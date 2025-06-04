@@ -37,27 +37,17 @@ int main() {
 
         // Se o usuário não escolheu a opção de registrar venda
 
-        // Inicializa a lista de vendas
-        SaleList salesList = {
-            .count = 0,
-            .sales = NULL,
-            .totalValue = 0.0
-        };
-        
         // Verifica qual relatório o usuário deseja gerar
         switch (option) {
 
             case 2:
-                salesList = generateSalesReport(DAILY_REPORT);
-                showSalesReport(&salesList, DAILY_REPORT);
+                showSalesReport(DAILY_REPORT);
                 break;
             case 3:
-                salesList = generateSalesReport(MONTHLY_REPORT);
-                showSalesReport(&salesList, MONTHLY_REPORT);
+                showSalesReport(MONTHLY_REPORT);
                 break;
             case 4:
-                salesList = generateSalesReport(ANNUAL_REPORT);
-                showSalesReport(&salesList, ANNUAL_REPORT);
+                showSalesReport(ANNUAL_REPORT);
                 break;
         }
     }

@@ -11,7 +11,7 @@ typedef enum {
 
 SaleList generateSalesReport(ReportType reportType);
 
-void showSalesReport(SaleList *salesList, ReportType reportType);
+void showSalesReport(ReportType reportType);
 
 // void gerarRelatorioMensal();
 // void gerarRelatorioAnual();
