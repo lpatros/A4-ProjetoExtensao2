@@ -1,11 +1,13 @@
 # Sistema de Vendas - Restaurante a Quilo
 
-## Sumário
+Sistema para gerenciamento de vendas de restaurantes, desenvolvido em C como projeto acadêmico. Oferece controle de vendas de refeições a quilo, quentinhas e bebidas, com interface em terminal colorido e relatórios detalhados por período.
 
-- [Descrição do Projeto](#descrição-do-projeto)
+## 📑 Sumário
+
+- [Sobre o Projeto](#-sobre-o-projeto)
   - [Objetivos da Atividade](#objetivos-da-atividade)
 - [Funcionalidades](#funcionalidades)
-  - [Tipos de Venda Suportados](#tipos-de-venda-suportados)
+  - [Tipos de Venda](#tipos-de-venda)
   - [Sistema de Relatórios](#sistema-de-relatórios)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Compilação e Execução](#compilação-e-execução)
@@ -14,12 +16,12 @@
   - [Execução](#execução)
 - [Recursos Implementados](#recursos-implementados)
   - [Estruturas de Dados](#estruturas-de-dados)
-  - [Algoritmos Utilizados](#algoritmos-utilizados)
+  - [Algoritmos Implementados](#algoritmos-implementados)
   - [Funcionalidades Extras](#funcionalidades-extras)
 
-## Descrição do Projeto
+## 🎯 Sobre o Projeto
 
-Sistema de gerenciamento de vendas desenvolvido em C para restaurantes que trabalham com refeições a quilo, quentinhas e bebidas. O sistema oferece funcionalidades para registro de vendas e geração de relatórios detalhados com interface colorida no terminal.
+Sistema de gerenciamento de vendas desenvolvido em C para restaurantes que trabalham com refeições a quilo, quentinhas e bebidas. Além do registro de vendas, o sistema oferece relatórios para acompanhamento do desempenho do negócio.
 
 ### Objetivos da Atividade
 
@@ -33,27 +35,31 @@ Este projeto foi desenvolvido como parte da disciplina **Projeto de Extensão II
 
 ## Funcionalidades
 
-### Tipos de Venda Suportados
+### Tipos de Venda
 
 1. **Refeição a Quilo** 
-   - Preço: **R$ 70,00/kg**
-   - Cálculo baseado no peso informado pelo usuário
+   - Preço fixo de **R$ 70,00/kg**
+   - Cálculo automático baseado no peso informado
    - Opção de adicionar bebidas à mesma venda
 
 2. **Quentinha**
-   - Preço base: **R$ 20,00** + **R$ 0,50** (embalagem)
-   - **Total por unidade: R$ 20,50**
+   - Preço base: **R$ 20,00** 
+   - Taxa de embalagem: **R$ 0,50** por unidade
    - Quantidade definida pelo usuário
 
 3. **Bebidas**
-   - Preço unitário **variável** (informado pelo usuário)
+   - Preço por unidade
    - Pode ser vendida independentemente ou como complemento
 
 ### Sistema de Relatórios
 
-- **Relatório Diário**: Vendas do dia atual
-- **Relatório Mensal**: Vendas do mês atual
-- **Relatório Anual**: Vendas do ano atual
+- **Relatório Diário**
+  - Lista detalhada de todas as vendas do dia atual
+  - Total de vendas e valor arrecadado no dia
+  
+- **Relatório Mensal**
+  - Resumo das vendas por mês do ano atual
+  - Ordenação por valor total
 
 ## Estrutura do Projeto
 
@@ -129,11 +135,11 @@ main.exe
 - **Enums**: 
   - `TypeItem`: Tipos de itens (REFEICAO, HOTMEAL, DRINK)
   - `ColorText`: Cores para interface do terminal
-  - `ReportType`: Tipos de relatório (DAILY, MONTHLY, ANNUAL)
+  - `ReportType`: Tipos de relatório (DAY, MONTH, YEAR)
 
 - **Arrays dinâmicos**: Alocação automática de memória para listas de vendas
 
-### Algoritmos Utilizados
+### Algoritmos Implementados
 - **Filtragem temporal**: Busca de vendas por período (dia/mês/ano)
 - **Gerenciamento de IDs**: Sistema sequencial automático
 - **Manipulação de arquivos**: Leitura/escrita persistente de dados
