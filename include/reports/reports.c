@@ -143,6 +143,26 @@ void showSalesByDay() {
     free(salesList.sales);
 }
 
+void sortMonthSalesByTotal(MonthMap *month) {
+
+    // Ordena os meses com base no total de vendas usando o algoritmo Bubble Sort
+    for (int i = 0; i < 12; i++) {
+
+        // Percorre os meses restantes para comparar e ordenar
+        for (int j = 0; j < 12 - i; j++) {
+
+            // Compara o total do mês atual com o próximo mês
+            if (month[j].total < month[j + 1].total) {
+
+                // Troca os meses se o total do mês atual for menor que o próximo
+                MonthMap temp = month[j];
+                month[j] = month[j + 1];
+                month[j + 1] = temp;
+            }
+        }
+    }
+}
+
 void showSalesByMonth() {
 
     // Inicializa a lista de vendas para o ano
@@ -192,6 +212,9 @@ void showSalesByMonth() {
         }
     }
 
+    // Ordena os meses com base no total de vendas
+    sortMonthSalesByTotal(monthName);
+
     color_printf("---------------------- Relatorio Mensal ---------------------\n", COLOR_WHITE);
     color_printf("\tMes\t\t\t|\t\tTotal\t\n", COLOR_WHITE);
     color_printf("-------------------------------------------------------------\n", COLOR_WHITE);
@@ -200,7 +223,7 @@ void showSalesByMonth() {
     for (int i = 0; i < 12; i++) {
 
         // Imprime apenas os meses com vendas registradas
-        if (monthName[i].total > 0.0) {
+        if (monthName[i].total > 0.1) {
 
             // %-15s para alinhar o nome do mês a esquerda
             printf("\t%-15s\t\t|\t\tR$%.2f\t\n", monthName[i].text, monthName[i].total);

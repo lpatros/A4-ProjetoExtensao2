@@ -21,6 +21,8 @@ SaleList getSalesByTime(ReportType reportType, Time* time);
 
 void showSalesByDay();
 
+void sortMonthSalesByTotal(MonthMap *month);
+
 void showSalesByMonth();
 
 #endif
