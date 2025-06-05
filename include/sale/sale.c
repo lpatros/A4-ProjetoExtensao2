@@ -5,6 +5,7 @@
 #include "../../utils/utils.h"
 #include "../saleID/saleID.h"
 #include "../drink/drink.h"
+#include "hotMeal.h"
 
 void writeSale(Sale* newSale) {
 
@@ -92,22 +93,8 @@ void registerSale() {
 
             break;
 
-        case QUENTINHA:
-            color_printf("Digite a quantidade de quentinhas: ", COLOR_WHITE);
-            scanf("%d", &newSale.item.amount);
-
-            clearTerminal();
-
-            // Calcula o preço
-            newSale.item.price = (newSale.item.amount * QUENTINHA_PRICE) + (newSale.item.amount * PACKAGING_PRICE);
-            newSale.item.weight = 0; // Peso é 0 para quentinhas
-
-            writeSale(&newSale);
-
-            color_printf("\n----- Venda  registrada -----\n", COLOR_WHITE);
-            printf("| Quentinhas \t | Valor    |\n");
-            printf("| %d \t\t | R$ %.2f |\n", newSale.item.amount, newSale.item.price);
-            color_printf("-----------------------------\n", COLOR_WHITE);
+        case HOTMEAL:
+            registerHotMeal(&newSale);
             break;
 
         case BEBIDA:

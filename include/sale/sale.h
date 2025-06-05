@@ -3,9 +3,12 @@
 
 #include <time.h>
 
+#define KILO_PRICE 70.00
+#define FILE_PATH_SALE "data/sales.txt"
+
 typedef enum {
     REFEICAO = 1,
-    QUENTINHA = 2,
+    HOTMEAL = 2,
     BEBIDA = 3
 } TypeItem;
 
@@ -18,7 +21,7 @@ typedef struct {
 
 typedef struct {
     int id;             // ID da venda (incrementado automaticamente)
-    itemSale item;      // Item vendido (Refeição, Quentinha ou Bebida)
+    itemSale item;      // Item vendido (Refeição, HOTMEAL ou Bebida)
     double total;       // Preço total da venda
     char date[20];      // Data e hora da venda
 } Sale;
@@ -28,11 +31,6 @@ typedef struct {
     Sale *sales;        // Array dinâmico de vendas
     double totalValue;  // Valor total das vendas
 } SaleList;
-
-#define KILO_PRICE 70.00
-#define QUENTINHA_PRICE 20.00
-#define PACKAGING_PRICE 0.50
-#define FILE_PATH_SALE "data/sales.txt"
 
 void writeSale(Sale* newSale);
 
