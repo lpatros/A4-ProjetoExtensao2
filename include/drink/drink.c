@@ -6,7 +6,7 @@
 #include "../../utils/utils.h"
 #include "../sale/sale.h"
 
-Drink registerDrink(Sale *sale, int isNewSale) {
+void registerDrink(Sale *sale, int isNewSale) {
 
     Drink drink =  {
         .choice = 1, // Inicializa a escolha como 1 (registrar bebida)
@@ -53,7 +53,5 @@ Drink registerDrink(Sale *sale, int isNewSale) {
         printf("| Bebidas \t | Valor    |\n");
         printf("| %d \t\t | R$ %.2f  |\n", drink.sale.item.amount, drink.sale.item.price);
         color_printf("-----------------------------\n", COLOR_WHITE);
-
-        return drink;
     }            
 }

@@ -8,6 +8,6 @@ typedef struct {
     Sale sale;
 } Drink;
 
-Drink registerDrink(Sale *sale, int isNewSale);
+void registerDrink(Sale *sale, int isNewSale);
 
 #endif
