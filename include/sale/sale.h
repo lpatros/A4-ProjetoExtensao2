@@ -27,9 +27,10 @@ typedef struct {
 } Sale;
 
 typedef struct {
-    int count;          // Número de vendas registradas
+    int countLines;     // Número de linhas no arquivo
     Sale *sales;        // Array dinâmico de vendas
     double totalValue;  // Valor total das vendas
+    int totalSales;     // Total de vendas registradas no arquivo
 } SaleList;
 
 typedef struct {

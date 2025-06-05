@@ -47,7 +47,7 @@ int isDateInReportRange(const char* saleDate, ReportType reportType) {
 SaleList generateSalesReport(ReportType reportType) {
 
     SaleList salesList = {
-        .count = 0,
+        .countLines = 0,
         .sales = NULL,
         .totalValue = 0.0
     };
@@ -76,7 +76,7 @@ SaleList generateSalesReport(ReportType reportType) {
         
         // Realloc para aumentar o tamanho atual do array de vendas
         // e adicionar a nova venda encontrada na linha do arquivo 
-        salesList.sales = realloc(salesList.sales, sizeof(Sale) * (salesList.count + 1));
+        salesList.sales = realloc(salesList.sales, sizeof(Sale) * (salesList.countLines + 1));
 
         if (salesList.sales == NULL) {
             printf("Erro ao alocar memória para as vendas.\n");
@@ -90,8 +90,13 @@ SaleList generateSalesReport(ReportType reportType) {
         // Atualiza o valor total das vendas
         salesList.totalValue += sale.total;
 
+        // Incrementa o total de vendas se o id da venda atual não for o mesmo do anterior
+        if (salesList.sales[salesList.countLines - 1].id != sale.id) {
+            salesList.totalSales++;
+        }
+
         // Adiciona a venda à lista
-        salesList.sales[salesList.count++] = sale;
+        salesList.sales[salesList.countLines++] = sale;
     }
     
     fclose(file);
@@ -102,14 +107,14 @@ void showSalesReport(ReportType reportType) {
 
     // Inicializa a lista de vendas
     SaleList salesList = {
-        .count = 0,
+        .countLines = 0,
         .sales = NULL,
         .totalValue = 0.0
     };
 
     salesList = generateSalesReport(reportType);
 
-    if (salesList.count == 0) {
+    if (salesList.countLines == 0) {
         color_printf("Nenhuma venda registrada para o dia.\n", COLOR_YELLOW);
         return;
     }
@@ -130,24 +135,26 @@ void showSalesReport(ReportType reportType) {
             return;
     }
 
-    // Imprime as vendas registradas no formato:
-
-    // -------------------------- reportType ---------------------------
-    // | ID | Tipo |   Peso    | Quantidade | Preço Item  |    data    |
-    // |  1 |   1  |   2.500   |      3     |   R$20.00   |  03/06/25  |
-    // -----------------------------------------------------------------
+    // Imprime as vendas registradas
 
     printf("----------------------------- %s -----------------------------\n", reportTypeStr);
     printf("| ID \t| Tipo \t| Peso \t\t| Quantidade \t| Preco Item \t| Data \t   |\n");
-
+    color_printf("----------------------------------------------------------------------------\n", COLOR_WHITE);
+    
     int i;
-    for (i = 0; i < salesList.count; i++) {
+    for (i = 0; i < salesList.countLines; i++) {
+        
         Sale sale = salesList.sales[i];
+        
         printf("| %d \t| %d \t| %.3fkg \t| %d \t\t| R$%.2f \t| %s |\n",
-                sale.id, sale.item.type, sale.item.weight, sale.item.amount, sale.item.price, sale.date);
+            sale.id, sale.item.type, sale.item.weight, sale.item.amount, sale.item.price, sale.date);
+            
+        if (salesList.sales[i + 1].id != sale.id) {
+            printf("|----\t|----\t|--------\t|----\t\t|-------\t|----------|\n");
+        }
     }
     color_printf("----------------------------------------------------------------------------\n", COLOR_WHITE);
-    printf("Total de vendas: %d\n", salesList.count);
-    printf("Valor total das vendas: R$%.2f\n", salesList.totalValue);
+    printf("Numero total de vendas registradas: %d\n", salesList.totalSales);
+    printf("Valor total vendido: R$%.2f\n", salesList.totalValue);
     free(salesList.sales);
 }
