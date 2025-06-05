@@ -4,8 +4,9 @@
 #include <string.h>
 #include "../../utils/utils.h"
 #include "../saleID/saleID.h"
-#include "drink.h"
+#include "meal.h"
 #include "hotMeal.h"
+#include "drink.h"
 
 void writeSale(Sale* newSale) {
 
@@ -67,30 +68,7 @@ void registerSale() {
     switch (newSale.item.type) {
 
         case REFEICAO:
-            color_printf("Digite o peso da refeicao a quilo (em kg): ", COLOR_WHITE);
-            scanf("%lf", &newSale.item.weight);
-
-            clearTerminal();
-
-            // Calcula o preço
-            newSale.item.amount = 1;
-            newSale.item.price = newSale.item.weight * KILO_PRICE;
-
-            writeSale(&newSale);
-
-            // Pergunta se o usuário desejar adicionar bebida(s) à venda atual
-            int wantDrink = showWantDrink();
-
-            // Se o usuário quiser adicionar bebida(s), chama a função registerDrink
-            if (wantDrink == 1) {
-                registerDrink(&newSale);
-            }
-
-            color_printf("\n-----Refeicao registrada-----\n", COLOR_WHITE);
-            printf("| Peso \t\t | Valor    |\n");
-            printf("| %.3fkg \t | R$ %.2f |\n", newSale.item.weight, newSale.item.price);
-            color_printf("-----------------------------\n", COLOR_WHITE);
-
+            registerMeal(&newSale);
             break;
 
         case HOTMEAL:
