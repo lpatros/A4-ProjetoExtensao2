@@ -52,8 +52,5 @@ void registerDrink(Sale *sale) {
     // Escreve a venda no arquivo
     writeSale(&drinkSale);
 
-    color_printf("\n-- Bebida(s) registrada(s) --\n", COLOR_WHITE);
-    printf("| Bebidas \t | Valor    |\n");
-    printf("| %d \t\t | R$ %.2f  |\n", drinkSale.item.amount, drinkSale.item.price);
-    color_printf("-----------------------------\n", COLOR_WHITE);        
+    printSale(&drinkSale);
 }

@@ -32,7 +32,14 @@ typedef struct {
     double totalValue;  // Valor total das vendas
 } SaleList;
 
+typedef struct {
+    char *text;
+    double content;
+} PrintSale;
+
 void writeSale(Sale* newSale);
+
+void printSale(Sale* sale);
 
 void registerSale();
 

@@ -15,8 +15,5 @@ void registerHotMeal(Sale* newSale) {
 
     writeSale(newSale);
 
-    color_printf("\n----- Venda  registrada -----\n", COLOR_WHITE);
-    printf("| Quentinhas \t | Valor    |\n");
-    printf("| %d \t\t | R$ %.2f |\n", newSale->item.amount, newSale->item.price);
-    color_printf("-----------------------------\n", COLOR_WHITE);
+    printSale(newSale);
 }

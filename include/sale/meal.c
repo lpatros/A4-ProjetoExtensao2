@@ -24,8 +24,6 @@ void registerMeal(Sale* newSale) {
         registerDrink(newSale);
     }
 
-    color_printf("\n-----Refeicao registrada-----\n", COLOR_WHITE);
-    printf("| Peso \t\t | Valor    |\n");
-    printf("| %.3fkg \t | R$ %.2f |\n", newSale->item.weight, newSale->item.price);
-    color_printf("-----------------------------\n", COLOR_WHITE);
+    // Imprime os detalhes da venda
+    printSale(newSale);
 }

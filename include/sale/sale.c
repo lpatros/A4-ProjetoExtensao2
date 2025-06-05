@@ -39,6 +39,26 @@ void writeSale(Sale* newSale) {
     updateFileID(newSale->id);
 }
 
+void printSale(Sale* sale) {
+
+    PrintSale printSale;
+    switch (sale->item.type) {
+        case REFEICAO:
+            printSale.text = "Peso";
+            printSale.content = sale->item.weight;
+            break;
+        default:
+            printSale.text = "Qntd";
+            printSale.content = (double)sale->item.amount;
+            break;
+    }
+
+    color_printf("\n---------Venda registrada--------\n", COLOR_WHITE);
+    printf("| %s \t\t | Valor \t|\n", printSale.text);
+    printf("| %.3f \t | R$ %.2f \t|\n", printSale.content, sale->item.price);
+    color_printf("---------------------------------\n", COLOR_WHITE);
+}
+
 void registerSale() {
 
     menuSale();
