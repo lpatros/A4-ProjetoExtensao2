@@ -1,6 +1,7 @@
 #include "../utils/utils.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 time_t getCurrentTime() {
     time_t currentTime;
