@@ -44,9 +44,10 @@ void registerSale() {
     int userItem;
     scanf("%d", &userItem);
 
-    time_t currentTime = getCurrentTime();
-    char formattedDate[10]; // Buffer para armazenar a data formatada
-    formatDateTime(currentTime, formattedDate);
+    Time currentTime = {
+        .now = getCurrentTime(),            // Obtém o timestamp atual
+    };
+    formatDateTime(currentTime.now, currentTime.dateStr); // Formata o timestamp no formato "DD/MM/AA"
 
     Sale newSale = {
         .id = getID() + 1,                  // Obtém o próximo ID de venda
@@ -60,7 +61,7 @@ void registerSale() {
     };
     
     // Copia a data formatada para a struct
-    strcpy(newSale.date, formattedDate);
+    strcpy(newSale.date, currentTime.dateStr);
     
     switch (newSale.item.type) {
 
@@ -93,7 +94,7 @@ void registerSale() {
             clearTerminal();
 
             // Calcula o preço
-            newSale.item.price = (newSale.item.amount * QUENTINHA_PRICE) + (newSale.item.amount * 0.50);
+            newSale.item.price = (newSale.item.amount * QUENTINHA_PRICE) + (newSale.item.amount * PACKAGING_PRICE);
             newSale.item.weight = 0; // Peso é 0 para quentinhas
 
             writeSale(&newSale);

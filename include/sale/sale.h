@@ -31,6 +31,7 @@ typedef struct {
 
 #define KILO_PRICE 70.00
 #define QUENTINHA_PRICE 20.00
+#define PACKAGING_PRICE 0.50
 #define FILE_PATH_SALE "data/sales.txt"
 
 void writeSale(Sale* newSale);
