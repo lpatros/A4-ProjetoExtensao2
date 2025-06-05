@@ -4,20 +4,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../sale/sale.h"
-#include "../../utils/utils.h"
 
-int isDateInReportRange(const char* saleDate, ReportType reportType) {
-
-    // Obtém a data atual
-    Time currentTime = {
-        .now = getCurrentTime(),
-    };
+int isDateInRange(const char* saleDate, Time* time, ReportType reportType) {
 
     // Formata o timestamp atual no formato "DD/MM/AA"
-    formatDateTime(currentTime.now, currentTime.dateStr);
+    formatDateTime(time->now, time->dateStr);
     
     // Extrai componentes da data atual
-    sscanf(currentTime.dateStr, "%d/%d/%d", &currentTime.day, &currentTime.month, &currentTime.year);
+    sscanf(time->dateStr, "%d/%d/%d", &time->day, &time->month, &time->year);
     
     // Extrai componentes da data da venda
     Time saleTime;
@@ -27,29 +21,30 @@ int isDateInReportRange(const char* saleDate, ReportType reportType) {
     
     // Retorna true se a data da venda estiver dentro do intervalo do relatório
     switch (reportType) {
-        case DAILY_REPORT:
-            return (saleTime.day == currentTime.day &&
-                    saleTime.month == currentTime.month &&
-                    saleTime.year == currentTime.year);
+        case DAY:
+            return (saleTime.day == time->day &&
+                    saleTime.month == time->month &&
+                    saleTime.year == time->year);
 
-        case MONTHLY_REPORT:
-            return (saleTime.month == currentTime.month &&
-                    saleTime.year == currentTime.year);
+        case MONTH:
+            return (saleTime.month == time->month &&
+                    saleTime.year == time->year);
 
-        case ANNUAL_REPORT:
-            return (saleTime.year == currentTime.year);
+        case YEAR:
+            return (saleTime.year == time->year);
 
         default:
             return false;
     }
 }
 
-SaleList generateSalesReport(ReportType reportType) {
+SaleList getSalesByTime(ReportType reportType, Time* time) {
 
     SaleList salesList = {
         .countLines = 0,
         .sales = NULL,
-        .totalValue = 0.0
+        .totalValue = 0.0,
+        .totalSales = 0
     };
 
     // Abre o arquivo de vendas
@@ -70,7 +65,7 @@ SaleList generateSalesReport(ReportType reportType) {
                   sale.date) == 6)
     {
         // Verifica se a data da venda não está no período do relatório
-        if (!isDateInReportRange(sale.date, reportType)) {
+        if (!isDateInRange(sale.date, time, reportType)) {
             continue; // Se não estiver, pula essa venda
         }
         
@@ -103,41 +98,30 @@ SaleList generateSalesReport(ReportType reportType) {
     return salesList;
 }
 
-void showSalesReport(ReportType reportType) {
+void showSalesByDay() {
 
     // Inicializa a lista de vendas
     SaleList salesList = {
         .countLines = 0,
         .sales = NULL,
-        .totalValue = 0.0
+        .totalValue = 0.0,
+        .totalSales = 0
     };
 
-    salesList = generateSalesReport(reportType);
+    Time time = {
+        .now = getCurrentTime(),
+    };
+
+    salesList = getSalesByTime(DAY, &time);
 
     if (salesList.countLines == 0) {
         color_printf("Nenhuma venda registrada para o dia.\n", COLOR_YELLOW);
         return;
     }
 
-    char *reportTypeStr;
-    switch (reportType) {
-        case DAILY_REPORT:
-            reportTypeStr = "Relatorio Diario";
-            break;
-        case MONTHLY_REPORT:
-            reportTypeStr = "Relatorio Mensal";
-            break;
-        case ANNUAL_REPORT:
-            reportTypeStr = "Relatorio Anual";
-            break;
-        default:
-            color_printf("Tipo de relatorio invalido.\n", COLOR_RED);
-            return;
-    }
-
     // Imprime as vendas registradas
 
-    printf("----------------------------- %s -----------------------------\n", reportTypeStr);
+    color_printf("----------------------------- Relatorio Diario -----------------------------\n", COLOR_WHITE);
     printf("| ID \t| Tipo \t| Peso \t\t| Quantidade \t| Preco Item \t| Data \t   |\n");
     color_printf("----------------------------------------------------------------------------\n", COLOR_WHITE);
     
@@ -157,4 +141,73 @@ void showSalesReport(ReportType reportType) {
     printf("Numero total de vendas registradas: %d\n", salesList.totalSales);
     printf("Valor total vendido: R$%.2f\n", salesList.totalValue);
     free(salesList.sales);
+}
+
+void showSalesByMonth() {
+
+    // Inicializa a lista de vendas para o ano
+    SaleList yearList = {
+        .countLines = 0,
+        .sales = NULL,
+        .totalValue = 0.0,
+        .totalSales = 0
+    };
+
+    // Obtém o timestamp atual e inicializa a estrutura Time
+    Time currentYearTime = {
+        .now = getCurrentTime(),
+    };
+
+    // Pega as vendas do ano atual
+    yearList = getSalesByTime(YEAR, &currentYearTime);
+
+    // Verifica se há vendas registradas no ano atual
+    if (yearList.countLines == 0) {
+        color_printf("Nenhuma venda registrada durante esse ano.\n", COLOR_YELLOW);
+        return;
+    }
+
+    // Se há vendas registradas:
+
+    // Inicializa o array de meses com nomes e totais zerados
+    MonthMap monthName[12] = {
+        {"Janeiro", 0.0}, {"Fevereiro", 0.0}, {"Marco", 0.0},
+        {"Abril", 0.0}, {"Maio", 0.0}, {"Junho", 0.0},
+        {"Julho", 0.0}, {"Agosto", 0.0}, {"Setembro", 0.0},
+        {"Outubro", 0.0}, {"Novembro", 0.0}, {"Dezembro", 0.0}
+    };
+
+    // Acumula os totais de vendas para cada mês
+    for (int i = 0; i < yearList.countLines; i++) {
+        
+        int saleDay, saleMonth, saleYearInSale;
+
+        // Extrai o mês da data da venda (formato "DD/MM/AA")
+        if (sscanf(yearList.sales[i].date, "%d/%d/%d", &saleDay, &saleMonth, &saleYearInSale) == 3) {
+
+            // Converte mês (1-12) para índice (0-11)
+            int monthIndex = saleMonth - 1;
+
+            monthName[monthIndex].total += yearList.sales[i].total;
+        }
+    }
+
+    color_printf("---------------------- Relatorio Mensal ---------------------\n", COLOR_WHITE);
+    color_printf("\tMes\t\t\t|\t\tTotal\t\n", COLOR_WHITE);
+    color_printf("-------------------------------------------------------------\n", COLOR_WHITE);
+    
+    // Imprime os totais de vendas por mês
+    for (int i = 0; i < 12; i++) {
+
+        // Imprime apenas os meses com vendas registradas
+        if (monthName[i].total > 0.0) {
+
+            // %-15s para alinhar o nome do mês a esquerda
+            printf("\t%-15s\t\t|\t\tR$%.2f\t\n", monthName[i].text, monthName[i].total);
+        }
+    }
+
+    color_printf("-------------------------------------------------------------\n", COLOR_WHITE);
+    
+    free(yearList.sales);
 }

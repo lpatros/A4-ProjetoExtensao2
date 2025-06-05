@@ -28,8 +28,7 @@ void menu()
     color_printf("1. Registrar Venda\n", COLOR_RESET);
     color_printf("2. Relatorio Diario\n", COLOR_RESET);
     color_printf("3. Relatorio Mensal\n", COLOR_RESET);
-    color_printf("4. Relatorio Anual\n", COLOR_RESET);
-    color_printf("5. Sair\n", COLOR_RED);
+    color_printf("4. Sair\n", COLOR_RED);
     color_printf("-----------------------------\n", COLOR_GREEN);
     color_printf("Escolha uma opcao: ", COLOR_WHITE);
 }
@@ -48,9 +47,9 @@ void menuSale()
 
 void printPause()
 {
-  printf("\nPressione Enter para continuar...");
-  getchar();
-  getchar();
+    printf("\nPressione Enter para continuar...");
+    getchar();
+    getchar();
 }
 
 void clearTerminal()

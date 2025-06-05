@@ -2,15 +2,25 @@
 #define reports_H
 
 #include "../sale/sale.h"
+#include "../../utils/utils.h"
 
 typedef enum {
-    DAILY_REPORT,
-    MONTHLY_REPORT,
-    ANNUAL_REPORT
+    DAY,
+    MONTH,
+    YEAR
 } ReportType;
 
-SaleList generateSalesReport(ReportType reportType);
+typedef struct {
+    char* text;     // Nome do mês
+    double total;   // Valor total vendido no mês
+} MonthMap;
 
-void showSalesReport(ReportType reportType);
+int isDateInRange(const char* saleDate, Time* time, ReportType reportType);
+
+SaleList getSalesByTime(ReportType reportType, Time* time);
+
+void showSalesByDay();
+
+void showSalesByMonth();
 
 #endif

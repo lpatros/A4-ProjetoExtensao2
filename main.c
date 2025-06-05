@@ -7,9 +7,7 @@
 int main() {
 
     int option = 0;
-    while (option != 5) {
-
-        clearTerminal();
+    while (option != 4) {
         
         menu();
         scanf("%d", &option);
@@ -17,15 +15,16 @@ int main() {
         clearTerminal();
 
         // Verifica se a opção é válida
-        if (option < 1 || option > 5) {
+        if (option < 1 || option > 4) {
             color_printf("Opcao invalida! Tente novamente.\n", COLOR_RED);
+            printPause();
             continue; // Volta para o início do loop se a opção for inválida
         }
 
         // Se a opção é válida
 
         // Verifica se o usuário escolheu a opção de sair do sistema
-        if (option == 5) {
+        if (option == 4) {
             color_printf("Saindo do sistema...\n", COLOR_YELLOW);
             break;
         }
@@ -33,6 +32,7 @@ int main() {
         // Verifica se o usuário escolheu a opção de registrar venda
         if (option == 1) {
             registerSale();
+            continue;
         }
 
         // Se o usuário não escolheu a opção de registrar venda
@@ -41,17 +41,16 @@ int main() {
         switch (option) {
 
             case 2:
-                showSalesReport(DAILY_REPORT);
+                showSalesByDay();
                 break;
             case 3:
-                showSalesReport(MONTHLY_REPORT);
+                showSalesByMonth();
                 break;
-            case 4:
-                showSalesReport(ANNUAL_REPORT);
-                break;
+            
         }
 
         printPause();
+        clearTerminal();
     }
     return 0;
 }
