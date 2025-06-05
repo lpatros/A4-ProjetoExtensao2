@@ -5,6 +5,8 @@
 
 void updateFileID(int id);
 
+int getNextID();
+
 int getID();
 
 #endif

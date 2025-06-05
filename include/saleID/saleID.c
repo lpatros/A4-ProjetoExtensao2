@@ -17,6 +17,11 @@ void updateFileID(int id) {
     fclose(file);
 }
 
+int getNextID() {
+    int currentID = getID();
+    return currentID + 1;
+}
+
 int getID() {
     FILE *file = fopen(FILE_PATH_ID, "r");
 
@@ -28,7 +33,7 @@ int getID() {
     }
 
     // Tenta ler o ID do arquivo
-    int id;
+    static int id;
     if (fscanf(file, "%d", &id) != 1) {
     
         // Se não conseguiu ler o ID, ou o arquivo está vazio

@@ -50,7 +50,7 @@ void registerSale() {
     formatDateTime(currentTime.now, currentTime.dateStr); // Formata o timestamp no formato "DD/MM/AA"
 
     Sale newSale = {
-        .id = getID() + 1,                  // Obtém o próximo ID de venda
+        .id = getNextID(),                  // Obtém o próximo ID de venda
         .item = {
             .type = (TypeItem)userItem,     // transforma o numero do usuário no enum
             .weight = 0.0,                  // Peso da refeição a quilo (inicialmente 0)

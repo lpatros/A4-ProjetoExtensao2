@@ -20,7 +20,7 @@ typedef struct {
     int id;             // ID da venda (incrementado automaticamente)
     itemSale item;      // Item vendido (Refeição, Quentinha ou Bebida)
     double total;       // Preço total da venda
-    char date[20];        // Data e hora da venda
+    char date[20];      // Data e hora da venda
 } Sale;
 
 typedef struct {
