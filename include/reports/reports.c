@@ -22,10 +22,10 @@ int isDateInReportRange(const char* saleDate, ReportType reportType) {
     // Extrai componentes da data da venda
     Time saleTime;
     if (sscanf(saleDate, "%d/%d/%d", &saleTime.day, &saleTime.month, &saleTime.year) != 3) {
-        return 0; // Retorna 0 se a data da venda não estiver no formato esperado
+        return false;
     }
     
-    // Retorna 1 se a data da venda estiver dentro do intervalo do relatório
+    // Retorna true se a data da venda estiver dentro do intervalo do relatório
     switch (reportType) {
         case DAILY_REPORT:
             return (saleTime.day == currentTime.day &&
@@ -40,7 +40,7 @@ int isDateInReportRange(const char* saleDate, ReportType reportType) {
             return (saleTime.year == currentTime.year);
 
         default:
-            return 0;
+            return false;
     }
 }
 
