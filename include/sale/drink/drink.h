@@ -1,7 +1,7 @@
 #ifndef DRINK_H
 #define DRINK_H
 
-#include "sale.h"
+#include "../sale.h"
 
 int showWantDrink();
 

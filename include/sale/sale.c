@@ -4,9 +4,9 @@
 #include <string.h>
 #include "../../utils/utils.h"
 #include "../saleID/saleID.h"
-#include "meal.h"
-#include "hotMeal.h"
-#include "drink.h"
+#include "meal/meal.h"
+#include "hotMeal/hotMeal.h"
+#include "drink/drink.h"
 
 void writeSale(Sale* newSale) {
 

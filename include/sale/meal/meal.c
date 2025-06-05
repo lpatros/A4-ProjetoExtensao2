@@ -1,7 +1,7 @@
 #include "meal.h"
 
-#include "../../utils/utils.h"
-#include "drink.h"
+#include "../../../utils/utils.h"
+#include "../drink/drink.h"
 #include <stdio.h>
 
 void registerMeal(Sale* newSale) {
@@ -24,6 +24,5 @@ void registerMeal(Sale* newSale) {
         registerDrink(newSale);
     }
 
-    // Imprime os detalhes da venda
     printSale(newSale);
 }
