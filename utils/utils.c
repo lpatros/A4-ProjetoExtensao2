@@ -46,6 +46,13 @@ void menuSale()
     color_printf("Opcao: ", COLOR_WHITE);
 }
 
+void printPause()
+{
+  printf("\nPressione Enter para continuar...");
+  getchar();
+  getchar();
+}
+
 void clearTerminal()
 {
 #ifdef _WIN32

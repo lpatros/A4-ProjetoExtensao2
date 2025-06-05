@@ -8,6 +8,8 @@ int main() {
 
     int option = 0;
     while (option != 5) {
+
+        clearTerminal();
         
         menu();
         scanf("%d", &option);
@@ -48,6 +50,8 @@ int main() {
                 showSalesReport(ANNUAL_REPORT);
                 break;
         }
+
+        printPause();
     }
     return 0;
 }

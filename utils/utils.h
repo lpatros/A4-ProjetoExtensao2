@@ -37,6 +37,8 @@ void menu();
 
 void menuSale();
 
+void printPause();
+
 void clearTerminal();
 
 #endif
