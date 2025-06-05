@@ -3,11 +3,8 @@
 
 #include "../sale/sale.h"
 
-typedef struct {
-    int choice;
-    Sale sale;
-} Drink;
+int showWantDrink();
 
-void registerDrink(Sale *sale, int isNewSale);
+void registerDrink(Sale *sale);
 
 #endif

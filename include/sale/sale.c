@@ -77,8 +77,13 @@ void registerSale() {
 
             writeSale(&newSale);
 
-            // Pergunta e registra se o usuário desejar adicionar bebida(s) à venda atual
-            registerDrink(&newSale, 0); // 0 significa que não é uma nova venda
+            // Pergunta se o usuário desejar adicionar bebida(s) à venda atual
+            int wantDrink = showWantDrink();
+
+            // Se o usuário quiser adicionar bebida(s), chama a função registerDrink
+            if (wantDrink == 1) {
+                registerDrink(&newSale);
+            }
 
             color_printf("\n-----Refeicao registrada-----\n", COLOR_WHITE);
             printf("| Peso \t\t | Valor    |\n");
@@ -106,7 +111,7 @@ void registerSale() {
             break;
 
         case BEBIDA:
-            registerDrink(&newSale, 1); // 1 significa que é uma nova venda
+            registerDrink(&newSale);
             break;
         
         case 4:
