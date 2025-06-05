@@ -2,9 +2,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "../sale/sale.h"
 #include "../../utils/utils.h"
-#include "../sale/sale.h"
 
 int showWantDrink() {
     int option;
@@ -30,7 +28,7 @@ void registerDrink(Sale *sale) {
     Sale drinkSale = {
         .id = sale->id,
         .item = {
-            .type = BEBIDA,
+            .type = DRINK,
             .weight = 0,   // Peso é 0 para bebidas
             .amount = 0,   // Quantidade será definida pelo usuário
             .price = 0.0   // Preço unitário será definido pelo usuário

@@ -9,7 +9,7 @@
 typedef enum {
     REFEICAO = 1,
     HOTMEAL = 2,
-    BEBIDA = 3
+    DRINK = 3
 } TypeItem;
 
 typedef struct {

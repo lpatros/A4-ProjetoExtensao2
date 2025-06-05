@@ -4,7 +4,7 @@
 #include <string.h>
 #include "../../utils/utils.h"
 #include "../saleID/saleID.h"
-#include "../drink/drink.h"
+#include "drink.h"
 #include "hotMeal.h"
 
 void writeSale(Sale* newSale) {
@@ -97,7 +97,7 @@ void registerSale() {
             registerHotMeal(&newSale);
             break;
 
-        case BEBIDA:
+        case DRINK:
             registerDrink(&newSale);
             break;
         
