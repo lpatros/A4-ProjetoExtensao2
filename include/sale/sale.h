@@ -3,11 +3,10 @@
 
 #include <time.h>
 
-#define KILO_PRICE 70.00
 #define FILE_PATH_SALE "data/sales.txt"
 
 typedef enum {
-    REFEICAO = 1,
+    MEAL = 1,
     HOTMEAL = 2,
     DRINK = 3
 } TypeItem;

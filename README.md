@@ -133,9 +133,9 @@ main.exe
   - `PrintSale`: Formatação de saída personalizada
 
 - **Enums**: 
-  - `TypeItem`: Tipos de itens (REFEICAO, HOTMEAL, DRINK)
+  - `TypeItem`: Tipos de itens (MEAL, HOTMEAL, DRINK)
   - `ColorText`: Cores para interface do terminal
-  - `ReportType`: Tipos de relatório (DAY, MONTH, YEAR)
+  - `FilterType`: Tipos de relatório (DAY, MONTH, YEAR)
 
 - **Arrays dinâmicos**: Alocação automática de memória para listas de vendas
 

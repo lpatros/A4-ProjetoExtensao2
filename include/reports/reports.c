@@ -3,9 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../sale/sale.h"
 
-int isDateInRange(const char* saleDate, Time* time, ReportType reportType) {
+int isDateInRange(const char* saleDate, Time* time, FilterType filterType) {
 
     // Formata o timestamp atual no formato "DD/MM/AA"
     formatDateTime(time->now, time->dateStr);
@@ -20,7 +19,7 @@ int isDateInRange(const char* saleDate, Time* time, ReportType reportType) {
     }
     
     // Retorna true se a data da venda estiver dentro do intervalo do relatório
-    switch (reportType) {
+    switch (filterType) {
         case DAY:
             return (saleTime.day == time->day &&
                     saleTime.month == time->month &&
@@ -38,7 +37,7 @@ int isDateInRange(const char* saleDate, Time* time, ReportType reportType) {
     }
 }
 
-SaleList getSalesByTime(ReportType reportType, Time* time) {
+SaleList getSalesByTime(FilterType filterType, Time* time) {
 
     SaleList salesList = {
         .countLines = 0,
@@ -65,7 +64,7 @@ SaleList getSalesByTime(ReportType reportType, Time* time) {
                   sale.date) == 6)
     {
         // Verifica se a data da venda não está no período do relatório
-        if (!isDateInRange(sale.date, time, reportType)) {
+        if (!isDateInRange(sale.date, time, filterType)) {
             continue; // Se não estiver, pula essa venda
         }
         
@@ -121,25 +120,28 @@ void showSalesByDay() {
 
     // Imprime as vendas registradas
 
-    color_printf("----------------------------- Relatorio Diario -----------------------------\n", COLOR_WHITE);
-    printf("| ID \t| Tipo \t| Peso \t\t| Quantidade \t| Preco Item \t| Data \t   |\n");
-    color_printf("----------------------------------------------------------------------------\n", COLOR_WHITE);
+    color_printf("------------------------------------- Relatorio Diario -------------------------------------\n", COLOR_WHITE);
+    printf("| ID \t| Tipo \t| Peso \t\t| Quantidade \t| Preco Item \t| Total Venda\t| Data \t   |\n");
+    color_printf("--------------------------------------------------------------------------------------------\n", COLOR_WHITE);
     
     int i;
     for (i = 0; i < salesList.countLines; i++) {
         
         Sale sale = salesList.sales[i];
         
-        printf("| %d \t| %d \t| %.3fkg \t| %d \t\t| R$%.2f \t| %s |\n",
-            sale.id, sale.item.type, sale.item.weight, sale.item.amount, sale.item.price, sale.date);
+        printf("| %d \t| %d \t| %.3fkg \t| %d \t\t| R$%.2f \t| R$%.2f \t| %s |\n",
+            sale.id, sale.item.type, sale.item.weight, sale.item.amount, sale.item.price, sale.total, sale.date);
             
         if (salesList.sales[i + 1].id != sale.id) {
-            printf("|----\t|----\t|--------\t|----\t\t|-------\t|----------|\n");
+            printf("|----\t|----\t|--------\t|----\t\t|-------\t|-------\t|----------|\n");
         }
     }
-    color_printf("----------------------------------------------------------------------------\n", COLOR_WHITE);
-    printf("Numero total de vendas registradas: %d\n", salesList.totalSales);
-    printf("Valor total vendido: R$%.2f\n", salesList.totalValue);
+    color_printf("--------------------------------------------------------------------------------------------\n", COLOR_WHITE);
+    color_printf("|\t   Total Vendas Registradas\t\t|\t   Valor Total Vendido\t\t   |\n", COLOR_WHITE);
+    color_printf("--------------------------------------------------------------------------------------------\n", COLOR_WHITE);
+    printf("|\t\t\t%d\t\t\t|\t\tR$%.2f\t\t\t   |\n", salesList.totalSales, salesList.totalValue);
+    color_printf("--------------------------------------------------------------------------------------------\n", COLOR_WHITE);
+    
     free(salesList.sales);
 }
 

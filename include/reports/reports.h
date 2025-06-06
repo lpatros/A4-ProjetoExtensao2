@@ -8,16 +8,16 @@ typedef enum {
     DAY,
     MONTH,
     YEAR
-} ReportType;
+} FilterType;
 
 typedef struct {
     char* text;     // Nome do mês
     double total;   // Valor total vendido no mês
 } MonthMap;
 
-int isDateInRange(const char* saleDate, Time* time, ReportType reportType);
+int isDateInRange(const char* saleDate, Time* time, FilterType filterType);
 
-SaleList getSalesByTime(ReportType reportType, Time* time);
+SaleList getSalesByTime(FilterType filterType, Time* time);
 
 void showSalesByDay();
 

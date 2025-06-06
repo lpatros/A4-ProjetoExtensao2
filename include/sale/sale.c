@@ -43,7 +43,7 @@ void printSale(Sale* sale) {
 
     PrintSale printSale;
     switch (sale->item.type) {
-        case REFEICAO:
+        case MEAL:
             printSale.text = "Peso";
             printSale.content = sale->item.weight;
             break;
@@ -61,10 +61,10 @@ void printSale(Sale* sale) {
 
 void registerSale() {
 
+    int itemOption;
+    
     menuSale();
-
-    int userItem;
-    scanf("%d", &userItem);
+    scanf("%d", &itemOption);
 
     Time currentTime = {
         .now = getCurrentTime(),            // Obtém o timestamp atual
@@ -74,7 +74,7 @@ void registerSale() {
     Sale newSale = {
         .id = getNextID(),                  // Obtém o próximo ID de venda
         .item = {
-            .type = (TypeItem)userItem,     // transforma o numero do usuário no enum
+            .type = (TypeItem)itemOption,     // transforma o numero do usuário no enum
             .weight = 0.0,                  // Peso da refeição a quilo (inicialmente 0)
             .amount = 0,                    // Quantidade de quentinhas ou bebidas (inicialmente 0)
             .price = 0.0                    // Preço unitário do item (inicialmente 0)
@@ -87,7 +87,7 @@ void registerSale() {
     
     switch (newSale.item.type) {
 
-        case REFEICAO:
+        case MEAL:
             registerMeal(&newSale);
             break;
 
