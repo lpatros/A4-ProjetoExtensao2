@@ -15,7 +15,7 @@ int isDateInRange(const char* saleDate, Time* time, FilterType filterType) {
     // Extrai componentes da data da venda
     Time saleTime;
     if (sscanf(saleDate, "%d/%d/%d", &saleTime.day, &saleTime.month, &saleTime.year) != 3) {
-        return false;
+        return 0;
     }
     
     // Retorna true se a data da venda estiver dentro do intervalo do relatório
@@ -33,7 +33,7 @@ int isDateInRange(const char* saleDate, Time* time, FilterType filterType) {
             return (saleTime.year == time->year);
 
         default:
-            return false;
+            return 0;
     }
 }
 

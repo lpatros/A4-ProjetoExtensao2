@@ -34,7 +34,7 @@ int getID() {
 
     // Tenta ler o ID do arquivo
     static int id;
-    if (fscanf(file, "%d", &id) != true) {
+    if (fscanf(file, "%d", &id) != 1) {
     
         // Se não conseguiu ler o ID, ou o arquivo está vazio
         color_printf("Arquivo de ID inválido ou vazio. Definindo ID como 0.\n", COLOR_YELLOW);
